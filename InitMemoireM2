@@ -13,7 +13,8 @@ wget -O init_originel.sh ${PERSONAL_INIT_SCRIPT}
 
 #######################
 # A ADAPTER
-export GITLAB_USER_NAME="anoukmartin" # nom d'utilisateur Gitlab
+export GITHUB_USER_NAME="anoukmartin" # nom d'utilisateur Gitlab
+export GIT_REPOSITORY="Memoire_M2" # nom du repertoire du dépot Gitlab
 # PREALABLE
 # avoir configuré le service ("Configuration RStudio") avec
 # + Onglet Init : https://raw.githubusercontent.com/anoukmartin/Depot-Public/main/InitMemoireM2 dans PersonalInit, à adapter à l'emplacement de votre script
@@ -30,7 +31,7 @@ then
 fi
 
 # Cloner le projet
-export url="https://${GITLAB_USER_NAME}:${GIT_PERSONAL_ACCESS_TOKEN}@${GIT_REPOSITORY:8}"
+export url="https://${GIT_PERSONAL_ACCESS_TOKEN}@github.com/${GITHUB_USER_NAME}/${GIT_REPOSITORY}.git"
 git clone ${url}
 
 # Récupérer le nom du dossier créé
@@ -44,8 +45,8 @@ export dossier="/home/onyxia/work/$dossier"
 
 ########################
 # On actualise le script d'initialisation sur MinIO avec la version du dépôt
-export cheminInitMinio='s3/samuelallain/init.sh'
-export cheminInitLocal="${dossier}/contenu/init.sh"
+export cheminInitMinio='s3/anoukmartin/ScriptsInit/initR_MemoireM2.sh'
+export cheminInitLocal="${dossier}/contenu/initR_MemoireM2.sh"
 
 # mc cp $cheminInitLocal $cheminInitMinio && # copie de la version locale vers Minio
 #   mc anonymous set download $cheminInitMinio && # on rend le fichier téléchargeable sans authentification
@@ -73,7 +74,7 @@ mkdir -p $XDG_CONFIG_HOME
 echo '{
     "load_workspace": false,
     "font_size_points": 11,
-    "editor_theme": "Pastel On Dark",
+    "editor_theme": "Crimson Editor",
     "posix_terminal_shell": "bash",
     "default_project_location": "~",
     "jobs_tab_visibility": "shown",
@@ -91,6 +92,7 @@ chown -R ${USERNAME}:${GROUPNAME} ${HOME}
 # Ouvrir automatiquement le projet cloné
 
 export cheminRproj=`find $dossier -name '*.Rproj'`
+
 # Idée 1 : se mettre au moins au niveau du Rproj pour n'avoir qu'à cliquer
 # export RSTUDIO_CONF_FILE="/etc/rstudio/rsession.conf"
 # echo "session-default-working-dir=$dossier" >> ${RSTUDIO_CONF_FILE}
@@ -151,11 +153,11 @@ chown -R ${USERNAME}:${GROUPNAME} ${HOME}
 # Peut-être un nouveau problème de droits
 # Solution alternative :
 # https://support.posit.co/hc/en-us/articles/200551916
-#sudo chown -R onyxia:users '/usr/lib/rstudio-server/resources' #ne suffit pas
+# sudo chown -R onyxia:users '/usr/lib/rstudio-server/resources' #ne suffit pas
 
 # Après le téléchargement, les fichiers sont toujours là
 # on peut les copier sur minio une première fois
-# mc cp -r /home/onyxia/.config/rstudio/dictionaries/languages-system/ s3/samuelallain/dicos_rstudio
+# mc cp -r /home/onyxia/.config/rstudio/dictionaries/languages-system/ s3/anoukmartin/dicos_rstudio
 
 # A chaque lancement du service on récupère le dictionnaire français depuis minio
 export cheminDico="/home/onyxia/.config/rstudio/dictionaries/languages-system"
@@ -163,15 +165,15 @@ mkdir -p $cheminDico
 
 mc ls $cheminDico
 # echo "==============="
-mc cp s3/samuelallain/dicos_rstudio/fr_FR.aff $cheminDico
-mc cp s3/samuelallain/dicos_rstudio/fr_FR.dic $cheminDico
-mc cp s3/samuelallain/dicos_rstudio/fr_FR.dic_delta $cheminDico
+mc cp s3/anoukmartin/dicos_rstudio/fr_FR.aff $cheminDico
+mc cp s3/anoukmartin/dicos_rstudio/fr_FR.dic $cheminDico
+mc cp s3/anoukmartin/dicos_rstudio/fr_FR.dic_delta $cheminDico
 # mc ls $cheminDico
 
 # Si l'on a personnalisé des snippets, on peut récupérer le fichier
 # correspondant
-export cheminSnipMinio="s3/samuelallain/r.snippets"
-export cheminSnipLocal="/home/onyxia/.config/rstudio/snippets/r.snippets"
+# export cheminSnipMinio="s3/samuelallain/r.snippets"
+# export cheminSnipLocal="/home/onyxia/.config/rstudio/snippets/r.snippets"
 
 # La première fois, il faut créer ce fichier en
 # faisant ses personnalisations, puis en copiant le fichier avec minio :
@@ -179,8 +181,8 @@ export cheminSnipLocal="/home/onyxia/.config/rstudio/snippets/r.snippets"
 # mc anonymous set download $cheminSnipMinio # téléchargeable par toustes
 
 # à chaque init :
-mkdir -p '/home/onyxia/.config/rstudio/snippets/'
-mc cp ${cheminSnipMinio} ${cheminSnipLocal}
+# mkdir -p '/home/onyxia/.config/rstudio/snippets/'
+# mc cp ${cheminSnipMinio} ${cheminSnipLocal}
 
 # Changement final des droits
 # ls -al /home/onyxia # avant work a un groupe 1000
