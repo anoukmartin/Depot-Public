@@ -16,8 +16,8 @@ wget -O init_originel.sh ${PERSONAL_INIT_SCRIPT}
 export GITLAB_USER_NAME="anoukmartin" # nom d'utilisateur Gitlab
 # PREALABLE
 # avoir configuré le service ("Configuration RStudio") avec
-# + Onglet Init : https://minio.lab.sspcloud.fr/anoukmartin/init.sh dans PersonalInit, à adapter à l'emplacement de votre script
-# + Onglet Git : mis une URL (ici https://git.drees.fr/DREES_code/OSAM/besp/tutos.git) ET un jeton d'accès dans Token (voir la doc du SSP Cloud)
+# + Onglet Init : https://raw.githubusercontent.com/anoukmartin/Depot-Public/main/InitMemoireM2 dans PersonalInit, à adapter à l'emplacement de votre script
+# + Onglet Git : mis une URL (ici https://github.com/anoukmartin/Memoire_M2) ET un jeton d'accès dans Token (voir la doc du SSP Cloud)
 ########################
 
 # On récupère le nom d'utilisateur SSP Cloud à partir du dossier de secrets
