@@ -13,10 +13,10 @@ wget -O init_originel.sh ${PERSONAL_INIT_SCRIPT}
 
 #######################
 # A ADAPTER
-export GITLAB_USER_NAME="S.Allain" # nom d'utilisateur Gitlab
+export GITLAB_USER_NAME="anoukmartin" # nom d'utilisateur Gitlab
 # PREALABLE
 # avoir configuré le service ("Configuration RStudio") avec
-# + Onglet Init : https://minio.lab.sspcloud.fr/samuelallain/init.sh dans PersonalInit, à adapter à l'emplacement de votre script
+# + Onglet Init : https://minio.lab.sspcloud.fr/anoukmartin/init.sh dans PersonalInit, à adapter à l'emplacement de votre script
 # + Onglet Git : mis une URL (ici https://git.drees.fr/DREES_code/OSAM/besp/tutos.git) ET un jeton d'accès dans Token (voir la doc du SSP Cloud)
 ########################
 
