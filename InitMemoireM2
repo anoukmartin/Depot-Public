@@ -185,7 +185,7 @@ mc cp s3/anoukmartin/dicos_rstudio/fr_FR.dic_delta $cheminDico
 # mc cp ${cheminSnipMinio} ${cheminSnipLocal} 
 
 #### Installation de packages ####
-R -e 'install.packages(c("haven", "git2r", "stringr", "aws.s3"))'
+R -e 'install.packages(c("haven", "git2r", "stringr", "aws.s3", "dplyr", "forcats", "tidyr", "gtsummary", "gt", "ggplot2"))'
 ##################################
 
 # Changement final des droits
