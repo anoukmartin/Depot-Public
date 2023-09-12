@@ -182,7 +182,10 @@ mc cp s3/anoukmartin/dicos_rstudio/fr_FR.dic_delta $cheminDico
 
 # à chaque init :
 # mkdir -p '/home/onyxia/.config/rstudio/snippets/'
-# mc cp ${cheminSnipMinio} ${cheminSnipLocal}
+# mc cp ${cheminSnipMinio} ${cheminSnipLocal} 
+
+#### Installation de packages ####
+R -e 'install.packages(c("haven", "git2r", "stringr", "aws.s3"))'
 
 # Changement final des droits
 # ls -al /home/onyxia # avant work a un groupe 1000
