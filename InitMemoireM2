@@ -185,13 +185,21 @@ mc cp s3/anoukmartin/dicos_rstudio/fr_FR.dic_delta $cheminDico
 # mc cp ${cheminSnipMinio} ${cheminSnipLocal} 
 
 #### Installation de packages ####
-R -e 'install.packages(c("haven", "git2r", "stringr", "aws.s3", "dplyr", "forcats", "tidyr", "gtsummary", "gt", "ggplot2"))'
+TARGET_FILE="${GIT_REPOSITORY}/requirements.R"
+
+# Use an if-else statement to check if the file exists.
+if [[ -f "$TARGET_FILE" ]]
+then
+    echo "$TARGET_FILE exists. Installing project requirements"
+    Rscript $TARGET_FILE
+else
+    echo "$TARGET_FILE does not exist. To install packages automaticlly, please put a requirements Rscript at project root."
+fi
 ##################################
+
+
 
 # Changement final des droits
 # ls -al /home/onyxia # avant work a un groupe 1000
 chown -R ${USERNAME}:${GROUPNAME} ${HOME}
 ls -al /home/onyxia # vérif
-
-# Environnement final (pour déboguage)
-env | sort > env_final.out
